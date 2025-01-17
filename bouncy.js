@@ -9,22 +9,6 @@
     }
   });
 
-  // Variables for speed and jump height
-  let normalSpeed = 5;
-  let fastSpeed = 10;
-  let isFastSpeed = false;
-
-  // Toggle speed with M key
-  document.addEventListener('keydown', function(event) {
-    if (event.code == 'KeyM') {
-      isFastSpeed = !isFastSpeed;
-      ModAPI.player.setSpeed({ speed: isFastSpeed ? fastSpeed : normalSpeed });
-    } else if (event.code == 'KeyN') {
-      // Give Feather Falling 4 boots
-      ModAPI.player.addItemToInventory({ id: "minecraft:diamond_boots", enchantments: [{ id: "feather_falling", level: 4 }] });
-    }
-  });
-
   // Toggle jumping in the air with G key
   let canJumpInAir = false;
   document.addEventListener('keydown', function(event) {
