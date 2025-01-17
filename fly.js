@@ -16,6 +16,9 @@
   let jumpHeight = 1;
   let maxJumpHeight = 5;
   let minJumpHeight = 1;
+  
+  // Variable to toggle jumping in the air
+  let canJumpInAir = false;
 
   // Adjust speed with M and N keys
   document.addEventListener('keydown', function(event) {
@@ -23,6 +26,9 @@
       ModAPI.player.setSpeed({ speed: fastSpeed });
     } else if (event.code == 'KeyN') {
       ModAPI.player.setSpeed({ speed: slowSpeed });
+    } else if (event.code == 'KeyG') {
+      canJumpInAir = !canJumpInAir; // Toggle jumping in the air
+      console.log("Can jump in air: " + canJumpInAir);
     }
   });
 
@@ -39,10 +45,10 @@
     }
   });
 
-  // Implement the jump height adjustment
+  // Implement the jump height adjustment with air jump toggle
   document.addEventListener('keydown', function(event) {
     if (event.code == 'Space' && ModAPI.mcinstance.$currentScreen === null) {
-      if (ModAPI.mcinstance.$thePlayer.$motionY === 0) {
+      if (canJumpInAir || ModAPI.mcinstance.$thePlayer.$motionY === 0) {
         ModAPI.mcinstance.$thePlayer.$motionY = jumpHeight;
       }
     }
