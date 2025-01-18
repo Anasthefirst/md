@@ -7,6 +7,7 @@ var GrappleHookMod = {
   lift: 0.4, //Base vertical motion
   crouchToCancel: true //Whether or not crouching should disable the grappling hook.
 };
+
 ModAPI.addEventListener("update", () => { //Every client tick
   if (!ModAPI.player.fishEntity) { //If the fish hook does not exist.
     if (GrappleHookMod.prev === "GROUND" && (!GrappleHookMod.crouchToCancel || !ModAPI.player.isSneaking())) { //If the old state was ground
@@ -38,5 +39,18 @@ ModAPI.addEventListener("update", () => { //Every client tick
       ModAPI.player.fishEntity.z,
     ];
     GrappleHookMod.prev = "GROUND";//Update state
+  }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.code === 'KeyF') { // Check if the F key is pressed
+    var player = ModAPI.mcinstance.$thePlayer;
+    var direction = player.getLookVec(); // Get the direction the player is facing
+    player.setPosition(
+      player.posX + direction.x, // Move 1 block in the x direction
+      player.posY + direction.y, // Move 1 block in the y direction
+      player.posZ + direction.z  // Move 1 block in the z direction
+    );
+    player.reload(); // Push changes
   }
 });
