@@ -1,5 +1,5 @@
 (()=>{
-    const itemTexture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADySURBVFhH7ZQxDoMwDEVNr4G6VmJC6mk4Itdh7VpxjsBPDaKVCLZxypInIccg5zs/CVQoKAj8uHLjeETouo6HvlQcU3yJ932PIKkTceRAFH8NA6dE3IzbVogdQBOPtuVXfk5IJ8jWhKY4SxPaQvcmLEWuTUj/A1sqiEEcTQBENDWjvh3mvZtxccLiwMqvE0DrhNUBCCy1KSdAUsPiwFYcpM5ENrYWh3tdI4cT4dk0MSKPXzMSRSC+PMi14mcO4e7esv2iJqyHEGDVPCR6jyMC5luERXOfuoY7QFi8MKsDe6tXk8OBv7Ge/E96DZeKFwoOEE1wUX7TFh5zsgAAAABJRU5ErkJggg==";
+    const itemTexture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADySURBVFhH7ZQxDoMwDEVNr4G6VmJC6mk4It[...]
     ModAPI.meta.title("guns");
     ModAPI.meta.version("v1.0");
     ModAPI.meta.icon(itemTexture);
@@ -71,7 +71,7 @@
                 if (world.isRemote) {
                     recoilSpeed += 4;
                 } else {
-                    shotentitydata.entity.attackEntityFrom(cactus, 10 + (16 * shotentitydata.headshot));
+                    shotentitydata.entity.attackEntityFrom(cactus, 100 + (160 * shotentitydata.headshot)); // 10x more damage
                     if (shotentitydata.headshot) {
                         console.log("H E A D S H O T");
                     }
@@ -91,24 +91,15 @@
     
             // Define the recipe legend to map characters to items
             var recipeLegend = {
-                "I": {
-                    type: "item",
-                    id: "iron_ingot" // Using dirt blocks
-                },
-                "C": {
+                "W": {
                     type: "block",
-                    id: "iron_block" // Using dirt blocks
-                },
-                "Q": {
-                    type: "item",
-                    id: "gunpowder" // Using dirt blocks
-                },
+                    id: "red_wool" // Red wool requirement
+                }
             };
     
             // Define the crafting grid pattern for the recipe
             var recipePattern = [
-                "IIC",
-                " QI"
+                "W" // Only one red wool required
             ];
     
             // Convert the recipe pattern and legend into the required format
@@ -123,7 +114,6 @@
             var recipe = ModAPI.util.makeArray(ObjectClass, recipeContents.concat(recipeInternal));
     
             var resultItem = ModAPI.reflect.getClassById("net.minecraft.item.ItemStack").constructors[4](gunItem, 1);
-    
     
             // Register the recipe with CraftingManager
             var craftingManager = ModAPI.reflect.getClassById("net.minecraft.item.crafting.CraftingManager").staticMethods.getInstance.method();
